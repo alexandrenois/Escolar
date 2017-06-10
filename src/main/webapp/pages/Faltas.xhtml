@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/Template.xhtml">
+
+	<ui:define name="pagina">
+
+		<h:form id="formListagem">
+			<p:panel header="Lista de presença">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{faltasBean.faltas}" var="falta" rows="10">
+					<f:facet name="footer">
+
+						<!-- 					<p:commandButton value="Listar" actionListener="#{faltasBean.listar()}" -->
+						<!-- 						update=":formListagem"> -->
+						<p:commandButton value="Chamada"
+							oncomplete="PF('dialogo').show();" update=":formCadastro:painel">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
+						</p:commandButton>
+						<p:commandButton value="Relatório"
+								actionListener="#{faltasBean.getRelatorio()}" ajax="false"
+								onclick="this.form.target='_blank' "></p:commandButton>
+					</f:facet>
+
+					<p:column width="250px;" headerText="Nome"
+						filterBy="#{falta.aluno.nome}" sortBy="falta.aluno.nome">
+						<h:outputText value="#{falta.aluno.nome}" />
+					</p:column>
+
+					<!-- 					<p:column headerText="Disciplina" -->
+					<!-- 						filterBy="#{falta.disciplina.nome}" sortBy="falta.aluno.nome">> -->
+					<!-- 						<h:outputText value="#{falta.disciplina.nome}" /> -->
+					<!-- 					</p:column> -->
+
+					<p:column headerText="02/02" sortBy="#{falta.data1}}">
+						<h:outputText value="#{falta.data1}" />
+					</p:column>
+					<p:column headerText="09/02" sortBy="#{falta.data2}}">
+						<h:outputText value="#{falta.data2}" />
+					</p:column>
+					<p:column headerText="16/02" sortBy="#{falta.data3}}">
+						<h:outputText value="#{falta.data3}" />
+					</p:column>
+					<p:column headerText="23/02" sortBy="#{falta.data4}}">
+						<h:outputText value="#{falta.data4}" />
+					</p:column>
+					<p:column headerText="02/03" sortBy="#{falta.data5}}">
+						<h:outputText value="#{falta.data5}" />
+					</p:column>
+					<p:column headerText="09/03" sortBy="#{falta.data6}}">
+						<h:outputText value="#{falta.data6}" />
+					</p:column>
+					<p:column headerText="16/03" sortBy="#{falta.data7}}">
+						<h:outputText value="#{falta.data7}" />
+					</p:column>
+					<p:column headerText="23/03" sortBy="#{falta.data8}}">
+						<h:outputText value="#{falta.data8}" />
+					</p:column>
+					<p:column headerText="30/03" sortBy="#{falta.data9}}">
+						<h:outputText value="#{falta.data9}" />
+					</p:column>
+					<p:column headerText="06/04" sortBy="#{falta.data10}}">
+						<h:outputText value="#{falta.data10}" />
+					</p:column>
+					<p:column headerText="13/04" sortBy="#{falta.data11}}">
+						<h:outputText value="#{falta.data11}" />
+					</p:column>
+					<p:column headerText="20/04" sortBy="#{falta.data12}}">
+						<h:outputText value="#{falta.data12}" />
+					</p:column>
+					<p:column headerText="27/04" sortBy="#{falta.data13}}">
+						<h:outputText value="#{falta.data13}" />
+					</p:column>
+					<p:column headerText="04/05" sortBy="#{falta.data14}}">
+						<h:outputText value="#{falta.data14}" />
+					</p:column>
+					<p:column headerText="11/05" sortBy="#{falta.data15}}">
+						<h:outputText value="#{falta.data15}" />
+					</p:column>
+					<p:column headerText="18/05" sortBy="#{falta.data16}}">
+						<h:outputText value="#{falta.data16}" />
+					</p:column>
+					<p:column headerText="25/05" sortBy="#{falta.data17}}">
+						<h:outputText value="#{falta.data17}" />
+					</p:column>
+					<p:column headerText="01/06" sortBy="#{falta.data18}}">
+						<h:outputText value="#{falta.data18}" />
+					</p:column>
+					<p:column headerText="08/06" sortBy="#{falta.data19}}">
+						<h:outputText value="#{falta.data19}" />
+					</p:column>
+					<p:column headerText="15/06" sortBy="#{falta.data20}}">
+						<h:outputText value="#{falta.data20}" />
+					</p:column>
+					<p:column headerText="22/06" sortBy="#{falta.data21}}">
+						<h:outputText value="#{falta.data21}" />
+					</p:column>
+					<p:column headerText="29/06" sortBy="#{falta.data22}}">
+						<h:outputText value="#{falta.data22}" />
+					</p:column>
+					<p:column headerText="Faltas" sortBy="#{falta.totalFaltas}}">
+						<h:outputText value="#{falta.totalFaltas}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<p:dialog header="Chamda" widgetVar="dialogo" draggable="false"
+			resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+								<h:panelGrid id="painel" columns="2">
+								<p:outputLabel for="popup" value="Data "></p:outputLabel>
+								<p:calendar id="popup" value="#{calendarView.date2}"></p:calendar>
+								
+<!-- 									<p:outputLabel value="Prova *" /> -->
+<!-- 									<p:inputText id="prova" maxlength="50" size="30" -->
+<!-- 										value="#{desempenhoTempoBean.atletaProva.prova.codigo}" -->
+<!-- 										required="true" requiredMessage="Este campo é necessário" /> -->
+<!-- 									<p:outputLabel value="Bateria *" /> -->
+<!-- 									<p:inputText id="bateria" maxlength="50" size="30" -->
+<!-- 										value="#{desempenhoTempoBean.atletaProva.bateria}" required="true" -->
+<!-- 										requiredMessage="Este campo é necessário" /> -->
+<!-- 									<p:outputLabel value="Fase: " /> -->
+<!-- 									<p:selectOneRadio id="fase" -->
+<!-- 										value="#{desempenhoTempoBean.atletaProva.fase}" required="true" -->
+<!-- 										requiredMessage="O campo 'Fase' ´obrigatório"> -->
+<!-- 										<f:selectItem itemValue="Inicial" itemLabel="Inicial" /> -->
+<!-- 										<f:selectItem itemValue="Final" itemLabel="Final" /> -->
+<!-- 									</p:selectOneRadio> -->
+								</h:panelGrid>
+				<p:panel header="Lista">
+					<p:dataTable id="tabelaChamada" emptyMessage="Nenhum registro encontrado."
+						paginator="true" value="#{faltasBean.faltas}" var="falta"
+						rows="10">
+
+						<p:column width="250px;"  headerText="RA"
+							filterBy="#{falta.aluno.raAluno}" sortBy="#{falta.aluno.raAluno}">
+							<h:outputText value="#{falta.aluno.codigo}" />
+						</p:column>
+
+						<p:column width="300px;" headerText="Nome"
+							filterBy="#{falta.aluno.nome}" sortBy="#{falta.aluno.nome}">
+							<h:outputText value="#{falta.aluno.nome}" />
+						</p:column>
+						<p:column  width="250px;" headerText="Presença">
+<!-- 							<h:outputText value="#{falta.aluno.nome}" /> -->
+							<p:selectManyCheckbox id="basic" >
+							<f:selectItem itemLabel="P" />
+							<f:selectItem itemLabel="P" />
+							<f:selectItem itemLabel="P" />
+							<f:selectItem itemLabel="P" />
+							
+							</p:selectManyCheckbox>
+						</p:column>
+
+					</p:dataTable>
+				</p:panel>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{desempenhoDistanciaBean.listar()}"
+						update=" :formCadastro:painel :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>

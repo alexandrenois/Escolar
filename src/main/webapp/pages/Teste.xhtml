@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/Template.xhtml">
+
+	<ui:define name="pagina">
+
+		<h:form id="formListagem">
+			<p:panel header="Participantes">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{atletaBean.atletas}" var="atleta"
+					rows="10">
+							<f:facet name="footer">
+					<p:commandButton value="Listar" actionListener="#{atletaBean.listar()}"
+						update=":formListagem">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
+					</p:commandButton>
+				</f:facet>
+					<p:column headerText="Nome" filterBy="#{atleta.nome}">
+						<h:outputText value="#{atleta.nome}" />
+					</p:column>
+
+					<p:column headerText="Pais" filterBy="#{atleta.pais}">
+						<h:outputText value="#{atleta.pais}" />
+					</p:column>
+
+					<p:column headerText="Sexo" filterBy="#{atleta.sexo}">
+						<h:outputText value="#{atleta.sexo}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

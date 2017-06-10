@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/Template.xhtml">
+
+	<ui:define name="pagina">
+
+		<h:form id="formListagem">
+			<p:panel header="Notas">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{notasBean.notas}" var="nota" rows="10">
+					<f:facet name="footer">
+<!-- 						<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" -->
+<!-- 							update=":formCadastro:painel"> -->
+							
+<!-- 							<f:actionListener -->
+<!-- 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> -->
+<!-- 						</p:commandButton> -->
+						<p:commandButton value="Relatório"
+								actionListener="#{notasBean.getRelatorio()}" ajax="false"
+								onclick="this.form.target='_blank' "></p:commandButton>
+					</f:facet>
+					<p:column headerText="Nome" filterBy="#{nota.aluno.nome}">
+						<h:outputText value="#{nota.aluno.nome}" />
+					</p:column>
+
+					<!-- 					<p:column headerText="Disciplina" -->
+					<!-- 						filterBy="#{nota.disciplina.nome}"> -->
+					<!-- 						<h:outputText value="#{nota.disciplina.nome}" /> -->
+					<!-- 					</p:column> -->
+
+					<!-- 					<p:column headerText="Avaliação" filterBy="#{nota.avaliacao.tipo}" -->
+					<!-- 						sortBy="#{nota.avaliacao.tipo}"> -->
+					<!-- 						<h:outputText value="#{nota.avaliacao.tipo}" /> -->
+					<!-- 					</p:column> -->
+					<!-- 					<p:column headerText="Nota" filterBy="#{nota.nota}" -->
+					<!-- 						sortBy="#{nota.nota}"> -->
+					<!-- 						<h:outputText value="#{nota.nota}" /> -->
+					<!-- 					</p:column> -->
+					<p:column headerText="N1" sortBy="#{nota.n1}">
+						<h:outputText value="#{nota.n1}" />
+					</p:column>
+					<p:column headerText="N2" sortBy="#{nota.n2}">
+						<h:outputText value="#{nota.n2}" />
+					</p:column>
+					<p:column headerText="Trabalho" sortBy="#{nota.trabalho}">
+						<h:outputText value="#{nota.trabalho}" />
+					</p:column>
+					<p:column headerText="Exame" sortBy="#{nota.exame}">
+						<h:outputText value="#{nota.exame}" />
+					</p:column>
+					<p:column headerText="Média" sortBy="#{nota.mediaFinal}">
+						<h:outputText value="#{nota.mediaFinal}" />
+					</p:column>
+					<p:column headerText="Situação" sortBy="#{nota.situacao}">
+						<h:outputText value="#{nota.situacao}" />
+					</p:column>
+					<p:column headerText="Opções">
+
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{cidadeBean.editar}"
+							update=":mensagem :formCadastro:painel"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="notaSelecionada" value="#{notas}" />
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<p:dialog header="Consulta" widgetVar="dialogo" draggable="false"
+			resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" columns="2">
+					<p:outputLabel value="Nome *" />
+					<p:inputText id="Nome" maxlength="50" size="30"
+						value="#{notasBean.nota.aluno.nome}" required="true"
+						requiredMessage="Este campo é necessário" />
+					<p:outputLabel value="N1 *" />
+					<p:inputText id="N1" maxlength="50" size="30"
+						value="#{notasBean.nota.n1}" required="true"
+						requiredMessage="Este campo é necessário" />
+					<p:outputLabel value="N2 *" />
+					<p:inputText id="N2" maxlength="50" size="30"
+						value="#{notasBean.nota.n2}" required="true"
+						requiredMessage="Este campo é necessário" />
+					<p:outputLabel value="Trabalho *" />
+					<p:inputText id="Trabalho" maxlength="50" size="30"
+						value="#{notasBean.nota.trabalho}" required="true"
+						requiredMessage="Este campo é necessário" />
+					<p:outputLabel value="Exame *" />
+					<p:inputText id="Exame" maxlength="50" size="30"
+						value="#{notasBean.nota.exame}" required="true"
+						requiredMessage="Este campo é necessário" />
+					<p:outputLabel value="Média*" />
+					<p:inputText id="Media" maxlength="50" size="30"
+						value="#{notasBean.nota.mediaFinal}" required="true"
+						requiredMessage="Este campo é necessário" />
+						<p:outputLabel value="Média*" />
+					<p:inputText id="Situacao" maxlength="50" size="30"
+						value="#{notasBean.nota.situacao}" required="true"
+						requiredMessage="Este campo é necessário" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="salvar"
+						actionListener="#{notasBean.salvar()}"
+						update=" :formCadastro:painel :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>
